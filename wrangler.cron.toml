@@ -1,0 +1,19 @@
+name = "klid-reminder-cron"
+main = "workers/reminder-cron.ts"
+compatibility_date = "2024-10-22"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+# Runs every 5 minutes
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Shares the same D1 database as the Pages app
+[[d1_databases]]
+binding = "DB"
+database_name = "klid-dev"
+database_id = "REPLACE_AFTER_wrangler_d1_create"
+
+[vars]
+EMAIL_FROM = "Klid <hello@klid.app>"
+NEXT_PUBLIC_APP_URL = "https://klid.app"
+# RESEND_API_KEY is set via: wrangler secret put RESEND_API_KEY --config wrangler.cron.toml

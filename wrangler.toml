@@ -1,0 +1,22 @@
+name = "klid"
+main = ".open-next/worker.js"
+compatibility_date = "2024-10-22"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+# Static assets are served from .open-next/assets
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# D1 binding — replace database_id after `wrangler d1 create klid-dev`
+[[d1_databases]]
+binding = "DB"
+database_name = "klid-dev"
+database_id = "REPLACE_AFTER_wrangler_d1_create"
+
+[vars]
+EMAIL_FROM = "Klid <hello@klid.app>"
+NEXT_PUBLIC_APP_URL = "https://klid.app"
+# Secrets (JWT_SECRET, RESEND_API_KEY) are set via:
+#   wrangler secret put JWT_SECRET
+#   wrangler secret put RESEND_API_KEY
