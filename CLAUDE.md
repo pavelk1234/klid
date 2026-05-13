@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for future Claude Code sessions working on Klid.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
 
@@ -121,6 +121,7 @@ All UI copy lives in `lib/czech.ts` as a `t` const map. Every component imports 
 npm install                                          # one-time
 npm run dev                                          # next dev (D1 bindings available via OpenNext local platform)
 npm run build                                        # type-check + production build (verify before commit)
+npm run lint                                         # next lint (eslint-config-next)
 npm run cf:build                                     # build for Cloudflare (writes to .open-next/)
 npm run cf:preview                                   # local preview against the built artifact
 npm run cf:deploy                                    # deploy main app
@@ -131,6 +132,7 @@ npm run d1:migrate:local                             # apply schema to local D1
 npm run d1:migrate:remote                            # apply schema to remote D1
 
 # Cron worker (separate deploy)
+npm run cron:dev                                     # run reminder-cron locally with --test-scheduled
 npx wrangler deploy --config wrangler.cron.toml
 npx wrangler cron trigger klid-reminder-cron --config wrangler.cron.toml   # force-fire
 
@@ -138,6 +140,8 @@ npx wrangler cron trigger klid-reminder-cron --config wrangler.cron.toml   # for
 npx wrangler tail
 npx wrangler tail --config wrangler.cron.toml
 ```
+
+No test framework is configured — there is no `npm test`. Verify changes with `npm run build` + `npm run lint`, then manual smoke-test the affected flow.
 
 ## Required env / secrets
 
